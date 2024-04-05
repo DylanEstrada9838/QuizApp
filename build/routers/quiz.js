@@ -1,0 +1,21 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.quizRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const quiz_1 = require("../controllers/quiz");
+const passport_1 = __importDefault(require("../middlewares/passport"));
+const router = express_1.default.Router();
+exports.quizRouter = router;
+router.post("/", passport_1.default, quiz_1.saveQuiz);
+router.get("/", passport_1.default, quiz_1.getAllQuizByUser);
+router.post("/:id/questions", passport_1.default, quiz_1.saveQuestion);
+router.post("/:quizId/questions/:questionId", passport_1.default, quiz_1.saveOption);
+router.put("/:id", passport_1.default, quiz_1.changeQuiz);
+router.put("/:quizId/questions/:questionId", passport_1.default, quiz_1.changeQuestion);
+router.put("/:quizId/questions/:questionId/options/:optionId", passport_1.default, quiz_1.changeOption);
+router.delete("/:id", passport_1.default, quiz_1.removeQuiz);
+router.delete("/:quizId/questions/:questionId", passport_1.default, quiz_1.removeQuestion);
+router.delete("/:quizId/questions/:questionId/options/:optionId", passport_1.default, quiz_1.removeOption);
